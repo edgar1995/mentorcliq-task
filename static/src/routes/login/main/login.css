@@ -1,0 +1,9 @@
+.error {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}

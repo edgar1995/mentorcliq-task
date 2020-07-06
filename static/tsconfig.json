@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "../dist",
+    "target": "es2018",
+    "baseUrl": "..",
+    "typeRoots": [
+      "./static/src/types"
+    ],
+    "sourceMap": true,
+    "jsx": "react",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "types": [
+      "node"
+    ]
+  }
+}

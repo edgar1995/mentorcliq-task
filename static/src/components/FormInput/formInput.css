@@ -1,0 +1,13 @@
+.label {
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: space-between;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.input {
+  width: 300px;
+}

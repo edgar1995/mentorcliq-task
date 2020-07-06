@@ -1,0 +1,37 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table td, .table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table tr:nth-child(even){
+  background-color: var(--neutral-100);
+}
+
+.table tr:hover {
+  background-color: var(--neutral-200);
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--primary-color);
+  color: var(--neutral-white);
+}
+
+.actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,22 @@
+:root {
+  --primary-color: var(--green-400);
+  --secondary-color: var(--yellow-400);
+  --primary-color-light: var(--green-300);
+  --primary-color-dark: var(--green-500);
+
+  --success-color: var(--green-300);
+  --warning-color: var(--yellow-300);
+  --error-color: var(--red-300);
+  --error-color-dark: var(--red-400);
+
+  --default-color: var(--neutral-100);
+  --default-color-dark: var(--neutral-200);
+
+  --disabled-color: var(--neutral-200);
+  --disabled-color-light: var(--neutral-75);
+  --disabled-color-dark: var(--neutral-200);
+
+  --text-disabled-color: var(--disabled-color);
+  --text-default-color: var(--neutral-900);
+  --text-secondary-color:  var(--neutral-white);
+}

@@ -1,0 +1,17 @@
+.formWrapper {
+  background-color: var(--neutral-500);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  background-color: var(--neutral-white);
+  flex-direction: column;
+  border-radius: 8px;
+  display: flex;
+  padding: 24px;
+  width: 400px;
+}

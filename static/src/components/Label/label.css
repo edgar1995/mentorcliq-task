@@ -1,0 +1,21 @@
+.label {
+  color: var(--primary-color);
+  display: flex;
+  cursor: pointer;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.labelText {
+  margin: 0 0 8px;
+}
+
+.error {
+  color: var(--error-color);
+}
+
+.disabled,
+.disabled:hover {
+  color: var(--text-disabled-color);
+  cursor: default;
+}
