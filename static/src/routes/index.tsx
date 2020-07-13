@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import { WizardWrapper } from '../components/WizardWrapper/WizardWrapper';
+import { AuthWrapper } from '../components/AuthWrapper/AuthWrapper';
+
+import { URLS } from './configs';
 
 const GroupManagement = React.lazy(() => import('./profile/GroupManagement/GroupManagement'));
 const EmployeeWizard = React.lazy(() => import('./employee-wizard/main/EmployeeWizard'));
 const Registration = React.lazy(() => import('./registration/main/Registration'));
 const Profile = React.lazy(() => import('./profile/main/Profile'));
 const Login = React.lazy(() => import('./login/main/Login'));
-
-import { WizardWrapper } from '../components/WizardWrapper/WizardWrapper';
-import { AuthWrapper } from '../components/AuthWrapper/AuthWrapper';
-
-import { URLS } from './configs';
 
 export function Routes() {
   return (

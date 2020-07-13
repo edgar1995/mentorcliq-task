@@ -14,7 +14,7 @@ const selectorVariables: ISelectorVariables = {
   },
 };
 
-export function WizardWrapper({ children  }) {
+export function WizardWrapper({ children }) {
   const { userEmployeeId } = useSelector(stateSelector(selectorVariables));
 
   return userEmployeeId ? children : <Redirect to={URLS.employeeWizard} />;

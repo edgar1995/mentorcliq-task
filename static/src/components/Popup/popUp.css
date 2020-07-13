@@ -1,0 +1,36 @@
+.popUp {
+  position: fixed;
+  z-index: var(--popup-z-index);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  z-index: 1;
+  padding: 32px;
+  border-radius: 9px;
+  background-color: var(--neutral-white);
+  position: relative;
+}
+
+.closeIcon {
+  position: absolute;
+  cursor: pointer;
+  right: 12px;
+  top: 8px;
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: var(--popup-overlay-background);
+}

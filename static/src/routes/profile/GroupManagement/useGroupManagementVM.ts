@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import { attemptSetEmployeeGroup, attemptSignOut } from '../../../store/user/UserActions';
 import { attemptGetEmployees } from '../../../store/employee/EmployeeActions';
+import { IEmployee } from '../../../store/employee/EmployeeReducer';
 import { ISelectorVariables } from '../../../store/rootSelector';
 import { IUserEmployee } from '../../../store/user/UserReducer';
 
@@ -13,6 +14,7 @@ import { stateSelector } from '../../../helpers/reduxUtils';
 const selectorVariables: ISelectorVariables = {
   employeeData: {
     userEmployees: true,
+    userEmployee: true,
     employees: true,
   },
   userData: {
@@ -23,22 +25,34 @@ const selectorVariables: ISelectorVariables = {
 interface IGroupManagementVM {
   moveEmployee: (dragIndex: number, hoverIndex: number) => void;
   onEmployeeCheck: (isChecked: boolean, id: number) => void;
+  showDiff: (employee: IEmployee) => void;
+  userEmployee: Map<string, string>;
+  diffEmployee: Map<string, string>;
   saveUserEmployees: () => void;
   userEmployeeGroup: List<any>;
   userEmployeeSortByIds: any;
+  closeDiff: () => void;
   employees: List<any>;
   userEmployees: any[];
+  isDiffShown: boolean;
   logOut: () => void;
   isLoading: boolean;
 }
 
 export function useGroupManagementVM(): IGroupManagementVM {
-  const { employees, userEmployeeGroup, userEmployees: initialUserEmployees } = useSelector(stateSelector(selectorVariables));
+  const {
+    userEmployees: initialUserEmployees,
+    userEmployeeGroup,
+    userEmployee,
+    employees,
+  } = useSelector(stateSelector(selectorVariables));
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [userEmployees, setUserEmployees] = useState([]);
+  const [diffEmployee, setDiffEmployee] = useState(null);
+  const [isDiffShown, setIsDiffShown] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isInitial, setIsInitial] = useState(true);
 
@@ -66,11 +80,13 @@ export function useGroupManagementVM(): IGroupManagementVM {
 
   const userEmployeeSortByIds = {};
 
-  userEmployees && userEmployees.forEach((employee, index) => {
-    if (employee) {
-      userEmployeeSortByIds[employee.id] = index + 1;
-    }
-  });
+  if (userEmployees) {
+    userEmployees.forEach((employee, index) => {
+      if (employee) {
+        userEmployeeSortByIds[employee.id] = index + 1;
+      }
+    });
+  }
 
   function moveEmployee(dragIndex: number, hoverIndex: number) {
     if (
@@ -103,12 +119,22 @@ export function useGroupManagementVM(): IGroupManagementVM {
   }
 
   function saveUserEmployees() {
-    const userEmployeeGroup: IUserEmployee[] = userEmployees.map((employee, index) => ({
+    const nextUserEmployeeGroup: IUserEmployee[] = userEmployees.map((employee, index) => ({
       employeeId: employee.id,
       order: index + 1,
     }));
 
-    dispatch(attemptSetEmployeeGroup(userEmployeeGroup));
+    dispatch(attemptSetEmployeeGroup(nextUserEmployeeGroup));
+  }
+
+  function showDiff(employee) {
+    setDiffEmployee(employee);
+    setIsDiffShown(true);
+  }
+
+  function closeDiff() {
+    setIsDiffShown(false);
+    setDiffEmployee(null);
   }
 
   return {
@@ -119,7 +145,12 @@ export function useGroupManagementVM(): IGroupManagementVM {
     onEmployeeCheck,
     userEmployees,
     moveEmployee,
+    userEmployee,
+    diffEmployee,
+    isDiffShown,
     employees,
     isLoading,
+    closeDiff,
+    showDiff,
   };
 }

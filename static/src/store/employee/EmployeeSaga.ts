@@ -15,7 +15,7 @@ function* attemptGetEmployees(): any {
 
     yield put(getEmployeesSucceed(employees));
   } catch ({ message }) {
-
+    console.error(message);
   }
 }
 
@@ -29,7 +29,7 @@ function* attemptAddEmployee({ payload: { employee } }: IEmployeeAction): any {
     yield put(attemptAttachEmployee(createdEmployee.id));
     yield put(getEmployeesSucceed([...employees, createdEmployee]));
   } catch ({ message }) {
-
+    console.error(message);
   }
 }
 

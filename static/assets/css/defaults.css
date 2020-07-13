@@ -19,4 +19,7 @@
   --text-disabled-color: var(--disabled-color);
   --text-default-color: var(--neutral-900);
   --text-secondary-color:  var(--neutral-white);
+
+  --popup-overlay-background: rgba(0, 0, 0, .5);
+  --popup-z-index: 10;
 }

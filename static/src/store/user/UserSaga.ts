@@ -8,7 +8,7 @@ import {
   setEmployeeGroupSucceed,
   signInFailed,
   signInSucceed,
-  signOutSucceed
+  signOutSucceed,
 } from './UserActions';
 import { USER_REDUCER_ACTIONS } from './UserReducer';
 import { UserService } from './UserService';
@@ -62,7 +62,7 @@ function* attemptSignOut(): any {
     yield put(signOutSucceed());
     yield put(resetUserData());
   } catch ({ message }) {
-
+    console.error(message);
   }
 }
 

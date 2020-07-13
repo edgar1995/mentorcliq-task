@@ -1,5 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import { FormInput } from '../../../components/FormInput/FormInput';
@@ -12,7 +13,6 @@ import { URLS } from '../../configs';
 import { useLoginVM } from './useLoginVM';
 
 import styles from './login.css';
-import { Link } from 'react-router-dom';
 
 export default function Login() {
   const vm = useLoginVM();

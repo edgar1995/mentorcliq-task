@@ -38,7 +38,7 @@ const defaultEmployeeState: IEmployeeData = fromJS({
 
 export function employeeReducer(
   state: IEmployeeData = defaultEmployeeState,
-  { type, payload }: IEmployeeAction
+  { type, payload }: IEmployeeAction,
 ): IEmployeeData {
   switch (type) {
     case EMPLOYEE_REDUCER_ACTIONS.GET_EMPLOYEES_SUCCEED:

@@ -1,10 +1,14 @@
 import React from 'react';
+import classNames from 'classnames';
 import { DndProvider } from 'react-dnd';
 import { Link } from 'react-router-dom';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Button } from '../../../components/Button/Button';
+import { Popup } from '../../../components/Popup/Popup';
 import { Row } from '../../../components/Row/Row';
+
+import { EMPLOYEE_DIFF_SKIPPED_KEYS, EMPLOYEE_SCHEMA } from '../../../helpers/constants';
 
 import { useGroupManagementVM } from './useGroupManagementVM';
 
@@ -20,28 +24,18 @@ export default function GroupManagement() {
           <table className={styles.table}>
             <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Gender</th>
-              <th>Email</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>Department</th>
-              <th>Job title</th>
+              {EMPLOYEE_SCHEMA.map(({ label, key }) => (
+                <th key={key}>{label}</th>
+              ))}
               <th />
             </tr>
             </thead>
             <tbody>
             {vm.employees.map(employee => (
-              <tr key={employee.get('id')}>
-                <td>{employee.get('firstName')}</td>
-                <td>{employee.get('lastName')}</td>
-                <td>{employee.get('gender')}</td>
-                <td>{employee.get('email')}</td>
-                <td>{employee.get('country')}</td>
-                <td>{employee.get('city')}</td>
-                <td>{employee.get('department')}</td>
-                <td>{employee.get('jobTitle')}</td>
+              <tr key={employee.get('id')} onClick={() => vm.showDiff(employee)}>
+                {EMPLOYEE_SCHEMA.map(({ key }) => (
+                  <td key={key}>{employee.get(key)}</td>
+                ))}
                 <td>
                   <input
                     onChange={({ currentTarget: { checked } }) => vm.onEmployeeCheck(checked, employee.get('id'))}
@@ -61,14 +55,9 @@ export default function GroupManagement() {
           <table className={styles.table}>
             <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Gender</th>
-              <th>Email</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>Department</th>
-              <th>Job title</th>
+              {EMPLOYEE_SCHEMA.map(({ label, key }) => (
+                <th key={key}>{label}</th>
+              ))}
             </tr>
             </thead>
             <tbody>
@@ -80,14 +69,9 @@ export default function GroupManagement() {
                   id={employee.id}
                   index={index}
                 >
-                  <td>{employee.firstName}</td>
-                  <td>{employee.lastName}</td>
-                  <td>{employee.gender}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.country}</td>
-                  <td>{employee.city}</td>
-                  <td>{employee.department}</td>
-                  <td>{employee.jobTitle}</td>
+                  {EMPLOYEE_SCHEMA.map(({ key }) => (
+                    <td key={key}>{employee[key]}</td>
+                  ))}
                 </Row>
               ))}
             </DndProvider>
@@ -116,6 +100,45 @@ export default function GroupManagement() {
           </Button>
         </div>
       </div>
+      {vm.isDiffShown && (
+        <Popup
+          handleDismiss={vm.closeDiff}
+          dismissOnEsc
+          hasOverlay
+        >
+          <div>
+            <table
+              className={classNames({
+                [styles.diffTable]: true,
+                [styles.table]: true,
+              })}
+            >
+              <tbody>
+              {EMPLOYEE_SCHEMA.map(({ key, label }) => {
+                if (EMPLOYEE_DIFF_SKIPPED_KEYS.includes(key)) {
+                  return null;
+                }
+
+                return (
+                  <tr key={key}>
+                    <td
+                      className={vm.userEmployee.get(key) !== vm.diffEmployee.get(key)
+                        ? styles.differentRow
+                        : ''
+                      }
+                    >
+                      {label}
+                    </td>
+                    <td>{vm.userEmployee.get(key)}</td>
+                    <td>{vm.diffEmployee.get(key)}</td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
+          </div>
+        </Popup>
+      )}
     </div>
   );
 }

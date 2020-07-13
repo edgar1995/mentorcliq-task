@@ -26,7 +26,7 @@ export function Button({
   onClick = undefined,
   className = '',
   children = null,
- ...props
+  ...props
 }: IButtonProps) {
   const buttonClasses = classNames({
     [className]: true,

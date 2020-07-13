@@ -1,9 +1,26 @@
 import { ISelectorVariables, rootSelector } from '../store/rootSelector';
 
-export function stateSelector(selectorVariables: ISelectorVariables): any {
-  return state => selectorVariables === true ?
-    getAllProps(rootSelector, state) :
-    getProps(selectorVariables, rootSelector, state);
+export function getAllProps(selectors: any, state: any): any {
+  const keys: string[] = Object.keys(selectors);
+  let props: any = {};
+
+  for (let i: number = 0; i < keys.length; i++) {
+    const key: string = keys[i];
+    const selector: any = selectors[key];
+
+    if (typeof selector === 'function') {
+      props[key] = selector(state);
+    } else if (typeof selector === 'object' && selector.constructor === Object) {
+      if (selector.main) {
+        const tempProps: any = selector.main(state);
+        props = { ...props, ...tempProps };
+      } else {
+        props[key] = getAllProps(selector, state);
+      }
+    }
+  }
+
+  return props;
 }
 
 export function getProps(variables: any, selectors: any, state: any): any {
@@ -40,25 +57,8 @@ export function getProps(variables: any, selectors: any, state: any): any {
   return props;
 }
 
-export function getAllProps(selectors: any, state: any): any {
-  const keys: string[] = Object.keys(selectors);
-  let props: any = {};
-
-  for (let i: number = 0; i < keys.length; i++) {
-    const key: string = keys[i];
-    const selector: any = selectors[key];
-
-    if (typeof selector === 'function') {
-      props[key] = selector(state);
-    } else if (typeof selector === 'object' && selector.constructor === Object) {
-      if (selector.main) {
-        const tempProps: any = selector.main(state);
-        props = { ...props, ...tempProps };
-      } else {
-        props[key] = getAllProps(selector, state);
-      }
-    }
-  }
-
-  return props;
+export function stateSelector(selectorVariables: ISelectorVariables): any {
+  return state => selectorVariables === true
+    ? getAllProps(rootSelector, state)
+    : getProps(selectorVariables, rootSelector, state);
 }

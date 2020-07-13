@@ -42,7 +42,7 @@ const RowComponent = React.forwardRef<HTMLDivElement, RowProps>(
       <tr ref={elementRef} style={{ opacity, cursor: 'move' }}>
         {children}
       </tr>
-    )
+    );
   },
 );
 
@@ -55,20 +55,20 @@ export const Row = DropTarget(
       component: RowInstance,
     ) {
       if (!component) {
-        return null
+        return;
       }
 
       const node = component.getNode();
 
       if (!node) {
-        return null
+        return;
       }
 
       const dragIndex = monitor.getItem().Error;
       const hoverIndex = props.index;
 
       if (dragIndex === hoverIndex) {
-        return
+        return;
       }
 
       const hoverBoundingRect = node.getBoundingClientRect();
@@ -80,16 +80,16 @@ export const Row = DropTarget(
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
+        return;
       }
 
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
+        return;
       }
 
       props.moveRow(dragIndex, hoverIndex);
 
-      monitor.getItem().Error = hoverIndex
+      monitor.getItem().Error = hoverIndex;
     },
   },
   (connect: DropTargetConnector) => ({

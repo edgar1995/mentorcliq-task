@@ -27,12 +27,12 @@ export function useFormVM({ onSubmit, initialValues, validationScheme }: IUseFor
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const validate = throttle((values) => {
+  const validate = throttle((formValues) => {
     validationScheme
-      .validate(values, { abortEarly: false })
+      .validate(formValues, { abortEarly: false })
       .then(() => {
         ReactDOM.unstable_batchedUpdates(() => {
-          setValues(values);
+          setValues(formValues);
           setErrors({});
         });
       })
@@ -46,7 +46,7 @@ export function useFormVM({ onSubmit, initialValues, validationScheme }: IUseFor
         });
 
         ReactDOM.unstable_batchedUpdates(() => {
-          setValues(values);
+          setValues(formValues);
           setErrors(nextErrors);
         });
       });

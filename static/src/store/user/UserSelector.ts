@@ -2,44 +2,46 @@ import { fromJS, List, Map } from 'immutable';
 
 import { IUser, IUserEmployee } from './UserReducer';
 
-import { createSelector} from '../../helpers/utils';
+import { createSelector } from '../../helpers/utils';
 
 const userDataSelector: any = state => state.get('userData');
 
 export const errorFieldsSelector: any = createSelector(
-  userDataSelector, userData => userData.get('errorFields')
+  userDataSelector, userData => userData.get('errorFields'),
 );
 
 export const isLoggedInSelector: any = createSelector(
-  userDataSelector, userData => userData.get('isLoggedIn')
+  userDataSelector, userData => userData.get('isLoggedIn'),
 );
 
 export const userInstanceSelector: any = createSelector(
-  userDataSelector, userData => userData.get('user')
+  userDataSelector, userData => userData.get('user'),
 );
 
 export const userEmployeeIdSelector: any = createSelector(
-  userInstanceSelector, user => user && user.get('employeeId')
+  userInstanceSelector, user => user && user.get('employeeId'),
 );
 
 export const userEmployeeGroupSelector: any = createSelector(
-  userInstanceSelector, user => user && user.get('employeeGroup')
+  userInstanceSelector, user => user && user.get('employeeGroup'),
 );
 
 export const userEmployeeIdsGroupSelector: any = createSelector(
-  userInstanceSelector, user => user && user.get('employeeGroup').map(employee => employee.get('employeeId'))
+  userInstanceSelector, user => user && user.get('employeeGroup').map(employee => employee.get('employeeId')),
 );
 
 export const userEmployeeOrderByIdsSelector: any = createSelector(
-  userInstanceSelector, user => {
+  userInstanceSelector, (user) => {
     const userEmployeeSortByIds = {};
 
-    user && user.get('employeeGroup').forEach(employee => {
-      userEmployeeSortByIds[employee.get('employeeId')] = employee.get('order');
-    });
+    if (user) {
+      user.get('employeeGroup').forEach((employee) => {
+        userEmployeeSortByIds[employee.get('employeeId')] = employee.get('order');
+      });
+    }
 
     return fromJS(userEmployeeSortByIds);
-  }
+  },
 );
 
 export interface IUserModuleProps extends Map<string, any> {

@@ -5,7 +5,7 @@ import { IEmployee } from './EmployeeReducer';
 import {
   userEmployeeIdSelector,
   userEmployeeIdsGroupSelector,
-  userEmployeeOrderByIdsSelector
+  userEmployeeOrderByIdsSelector,
 } from '../user/UserSelector';
 
 import { createSelector } from '../../helpers/utils';
@@ -15,13 +15,13 @@ const employeeDataSelector: any = state => state.get('employeeData');
 export const employeesListSelector: any = createSelector(
   employeeDataSelector,
   userEmployeeIdSelector,
-  (employeeData, id) => employeeData.get('employees').filter(employee => employee.get('id') !== id)
+  (employeeData, id) => employeeData.get('employees').filter(employee => employee.get('id') !== id),
 );
 
 export const userEmployeeSelector: any = createSelector(
   employeeDataSelector,
   userEmployeeIdSelector,
-  (employeeData, id) => employeeData.get('employees').find(employee => employee.get('id') === id)
+  (employeeData, id) => employeeData.get('employees').find(employee => employee.get('id') === id),
 );
 
 export const userEmployeesSelector: any = createSelector(

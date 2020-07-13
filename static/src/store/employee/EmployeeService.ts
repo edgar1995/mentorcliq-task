@@ -6,9 +6,7 @@ import { EMPLOYEES } from '../../mock';
 export class EmployeeService {
   private employees = JSON.parse(localStorage.getItem('employees')) || EMPLOYEES;
 
-  getEmployees = async () => {
-    return this.employees;
-  };
+  getEmployees = async () => this.employees;
 
   addEmployee = async (employee) => {
     this.employees = [...this.employees, employee];

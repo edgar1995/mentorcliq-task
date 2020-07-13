@@ -7,14 +7,14 @@ export class UserService {
   private users = JSON.parse(localStorage.getItem('users')) || USERS;
 
   signIn = async (username, password) => {
-    const user = this.users.find(user => user.username === username && user.password === password);
+    const userInstance = this.users.find(user => user.username === username && user.password === password);
 
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      return user;
+    if (userInstance) {
+      localStorage.setItem('user', JSON.stringify(userInstance));
+      return userInstance;
     }
 
-    throw { message: 'NotFound' };
+    throw new Error('NotFound');
   };
 
   signUp = async (username, password) => {
@@ -41,12 +41,12 @@ export class UserService {
   setEmployeeGroup = async (employeeGroup) => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
 
-    this.users = this.users.map(user => {
+    this.users = this.users.map((user) => {
       if (user.id === +currentUser.id) {
         return {
           ...user,
           employeeGroup,
-        }
+        };
       }
 
       return user;
@@ -58,12 +58,12 @@ export class UserService {
   attachEmployee = async (employeeId) => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
 
-    this.users = this.users.map(user => {
+    this.users = this.users.map((user) => {
       if (user.id === +currentUser.id) {
         return {
           ...user,
           employeeId,
-        }
+        };
       }
 
       return user;

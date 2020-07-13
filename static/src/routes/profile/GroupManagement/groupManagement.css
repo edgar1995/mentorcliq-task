@@ -4,6 +4,11 @@
   padding: 24px;
 }
 
+.differentRow {
+  background-color: var(--error-color);
+  color: var(--neutral-white);
+}
+
 .table {
   border-collapse: collapse;
   width: 100%;
@@ -16,6 +21,10 @@
 
 .table tr:nth-child(even){
   background-color: var(--neutral-100);
+}
+
+.diffTable tr:nth-child(even){
+  background-color: transparent;
 }
 
 .table tr:hover {
