@@ -41,6 +41,7 @@ export default function GroupManagement() {
                     onChange={({ currentTarget: { checked } }) => vm.onEmployeeCheck(checked, employee.get('id'))}
                     disabled={!vm.userEmployeeSortByIds[employee.get('id')] && vm.userEmployees.length === 5}
                     checked={!!vm.userEmployeeSortByIds[employee.get('id')]}
+                    onClick={event => event.stopPropagation()}
                     type='checkbox'
                   />
                 </td>
